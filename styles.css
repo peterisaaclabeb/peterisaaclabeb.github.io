@@ -886,6 +886,31 @@ html:not(.js) .foot .hint { display: none; }
   border-radius: 2px;
 }
 
+.skill-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--s-2);
+  font-family: var(--sans);
+  font-size: .95rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.skill-list li { position: relative; padding-left: 1.25rem; }
+.skill-list li::before {
+  content: "-";
+  position: absolute;
+  left: 0;
+  font-family: var(--mono);
+  color: var(--amber-deep);
+}
+.skill-list b { font-weight: 600; color: var(--text); }
+@media (min-width: 640px) {
+  .skill-list.cols { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--s-5); }
+}
+.skill-extra { margin: 0; font-family: var(--sans); font-size: .95rem; line-height: 1.5; color: var(--muted); }
+
 /* projects */
 .projects-grid {
   display: grid;
@@ -1086,6 +1111,12 @@ kbd {
 
 /* ---------- print: a clean, light résumé ---------- */
 @media print {
+  .skill-list { display: block; font-size: 10pt; color: #222; }
+  .skill-list li { padding-left: 0; margin: 0 0 1pt; }
+  .skill-list li::before { content: "\2022  "; position: static; color: #555; }
+  .skill-list b { color: #111; }
+  .skill-extra { font-size: 10pt; color: #222; }
+
   @page { margin: 16mm 15mm; }
   :root {
     --text: #111;
@@ -1149,9 +1180,11 @@ kbd {
 
   .skill-rows { padding: 0; }
   .skill-row { display: block; padding: 0; margin: 0 0 3pt; border: 0; break-inside: avoid; }
-  .skill-row h3 { display: inline; font-family: var(--sans); font-size: 10pt; color: #111; }
+  .skill-row h3 { display: block; margin: 4pt 0 1pt; font-family: var(--sans); font-size: 10.5pt; color: #111; }
   .skill-row .path { display: none; }
-  .skill-row h3::after { content: ": "; }
+  .skill-row-extra h3 { display: inline; }
+  .skill-row-extra h3::after { content: ": "; }
+  .skill-row-extra .skill-extra { display: inline; }
   .chips { display: inline; font-family: var(--sans); font-size: 10pt; }
   .chips li { display: inline; padding: 0; border: 0; background: none; color: #222; }
   .chips li + li::before { content: ", "; }
